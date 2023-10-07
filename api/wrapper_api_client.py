@@ -1,5 +1,5 @@
 import requests
-from api.endpoints import Endpoints
+import allure
 
 
 class APIClientWrapper:
@@ -7,15 +7,19 @@ class APIClientWrapper:
         self.base_url = base_url
 
     @staticmethod
-    def switch_currency(base_url, endpoint=Endpoints.CURRENCY, params=None, data=None, headers=None):
-        """"""
-        url = base_url + endpoint
-        response = requests.post(url=url, params=params, data=data, headers=headers)
-        return response
+    @allure.step("Отправка post-запроса")
+    def action(base_url, endpoint, params=None, data=None):
+        """Функция отправки post-запроса
 
-    @staticmethod
-    def cart_action(base_url, endpoint, params=None, data=None, headers=None):
-        """"""
+        Args:
+            base_url: Базовый URL для отправки запросов
+            endpoint: Конечная точка
+            params: Параметры запроса
+            data: Данные запроса
+
+        Returns: Ответ
+
+        """
         url = base_url + endpoint
-        response = requests.post(url=url, params=params, data=data, headers=headers)
+        response = requests.post(url=url, params=params, data=data)
         return response

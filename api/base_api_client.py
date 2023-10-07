@@ -1,6 +1,8 @@
 import requests
 import json
 import os
+import allure
+
 from api.endpoints import Endpoints
 
 
@@ -9,7 +11,9 @@ class BaseAPIClient:
         self.base_url = base_url
         self.api_token = None
 
+    @allure.step("Получение токена")
     def get_token(self):
+        """Функция получения токена"""
         token_url = f'{self.base_url}' + Endpoints.LOGIN
 
         api_credentials = self.get_api_credentials()
@@ -34,7 +38,9 @@ class BaseAPIClient:
             return None
 
     @staticmethod
+    @allure.step("Получение данных для входа")
     def get_api_credentials():
+        """Функция получения данных для входа из файла"""
         current_dir = os.path.dirname(os.path.abspath(__file__))
         project_dir = os.path.dirname(current_dir)
         config_path = os.path.join(project_dir, 'config.json')

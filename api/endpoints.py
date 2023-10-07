@@ -1,4 +1,5 @@
 class Endpoints:
+    """Класс с доступными конечными точками"""
     LOGIN = '/index.php?route=api/login'
     CURRENCY = '/index.php?route=api/currency'
     CART_ADD = '/index.php?route=api/cart/add'
