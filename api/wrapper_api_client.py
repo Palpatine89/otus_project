@@ -14,7 +14,7 @@ class APIClientWrapper:
         return response
 
     @staticmethod
-    def add_cart(base_url, endpoint=Endpoints.CART, params=None, data=None, headers=None):
+    def cart_action(base_url, endpoint, params=None, data=None, headers=None):
         """"""
         url = base_url + endpoint
         response = requests.post(url=url, params=params, data=data, headers=headers)
