@@ -30,6 +30,8 @@ class BaseAPIClient:
             response = requests.post(token_url, data=data)
             response.raise_for_status()
             token_data = response.json()
+            if 'error' in token_data:
+                print(token_data['error'])
             self.api_token = token_data.get('api_token')
             return self.api_token
 

@@ -14,4 +14,3 @@ class Endpoints:
     SET_SHIPPING_METHOD = '/index.php?route=api/shipping/method'
     RETURN_AVALIABLE_PAYMENTS_METHODS = '/index.php?route=api/payment/methods'
     SET_PAYMENT_ADDRESS = '/index.php?route=api/payment/address'
-    SET_AVALIABLE_PAYMENT_METHOD = '/index.php?route=api/payment/method'

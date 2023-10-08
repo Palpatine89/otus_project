@@ -1,5 +1,4 @@
 import pytest
-
 from api.wrapper_api_client import APIClientWrapper as api_methods
 from api.endpoints import Endpoints
 
@@ -111,7 +110,7 @@ class TestOpenCartApiTests:
         assert resp_json['error'] == "Warning: Coupon is either invalid, expired or reached it's usage limit!"
 
     def test_apply_invalid_voucher(self, api_token, base_url):
-        """Проверка применения несущетсующего ваучера"""
+        """Проверка применения несуществующего ваучера"""
         response = api_methods.action(base_url=base_url, endpoint=Endpoints.APPLY_VOUCHER,
                                       params={'api_token': api_token}, data={'voucher': 'VOU-7179'})
         resp_json = response.json()
@@ -179,6 +178,14 @@ class TestOpenCartApiTests:
         resp_json = response.json()
         assert response.status_code == STATUS_CODE_SUCCESS
         assert resp_json == []
+
+    def test_return_avaliable_payment_methods_without_cart(self, api_token, base_url):
+        """Проверка возврата ошибки 'Warning: Payment address required!' при пустой корзине"""
+        response = api_methods.action(base_url=base_url, endpoint=Endpoints.RETURN_AVALIABLE_PAYMENTS_METHODS,
+                                      params={'api_token': api_token})
+        resp_json = response.json()
+        assert response.status_code == STATUS_CODE_SUCCESS
+        assert resp_json['error'] == 'Warning: Payment address required!'
 
     def test_return_avaliable_payment_methods(self, api_token, base_url, add_product_to_cart):
         """Проверка возврата способов оплаты"""
